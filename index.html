@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LacerdaTEAM - Escolha Sua Jornada</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Orbitron:wght@400;700;900&family=Outfit:wght@300;400;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --start-blue: #00f2ff;
+      --start-dark: #001a1d;
+      --vingadores-red: #ff2a2a;
+      --vingadores-dark: #1a0000;
+      --speed: 0.6s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      color: white;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }
+
+    /* Split Sections */
+    .split {
+      position: relative;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+      transition: width var(--speed) cubic-bezier(0.25, 1, 0.5, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+    }
+
+    /* Left Side - Método Start (Energy/Flow) */
+    .left {
+      background: radial-gradient(circle at center, #004e53 0%, #000000 100%);
+      position: relative;
+    }
+
+    .left::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, transparent 60%);
+      animation: pulse 4s infinite ease-in-out;
+      top: -50%;
+      left: -50%;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.6;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .orb-1 {
+      width: 300px;
+      height: 300px;
+      background: var(--start-blue);
+      top: 20%;
+      left: 20%;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 200px;
+      height: 200px;
+      background: #008cff;
+      bottom: 20%;
+      right: 20%;
+      animation-delay: -3s;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(20px, -20px);
+      }
+    }
+
+    /* Right Side - Protocolo Vingadores (Tech/Tactical) */
+    .right {
+      background: #050000;
+      position: relative;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(255, 42, 42, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 42, 42, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.3;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      animation: gridScan 10s linear infinite;
+    }
+
+    .scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 42, 42, 0.5);
+      box-shadow: 0 0 10px var(--vingadores-red);
+      animation: scan 3s linear infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes gridScan {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 40px 40px;
+      }
+    }
+
+    @keyframes scan {
+      0% {
+        top: -10%;
+      }
+
+      100% {
+        top: 110%;
+      }
+    }
+
+    /* Content Styling */
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      transition: transform var(--speed) ease-in-out;
+      padding: 20px;
+      backdrop-filter: blur(5px);
+      border-radius: 20px;
+    }
+
+    /* Left Typography */
+    .left h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--start-blue);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      transition: 0.3s;
+    }
+
+    .left:hover h2 {
+      color: var(--start-blue);
+      -webkit-text-stroke: 0;
+      text-shadow: 0 0 30px var(--start-blue);
+    }
+
+    .left p {
+      font-size: 1.2rem;
+      color: #ccc;
+      max-width: 400px;
+      margin: 0 auto 30px;
+    }
+
+    .btn-start {
+      padding: 15px 40px;
+      border: 1px solid var(--start-blue);
+      color: var(--start-blue);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: rgba(0, 242, 255, 0.1);
+      transition: all 0.3s;
+      display: inline-block;
+      letter-spacing: 2px;
+      box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+    }
+
+    .left:hover .btn-start {
+      background: var(--start-blue);
+      color: #000;
+      box-shadow: 0 0 40px var(--start-blue);
+    }
+
+    /* Right Typography */
+    .right h2 {
+      font-family: 'Black Ops One', cursive;
+      font-size: 4rem;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .right h2::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 2px;
+      top: 0;
+      color: var(--vingadores-red);
+      opacity: 0.5;
+      z-index: -1;
+      mix-blend-mode: color-dodge;
+    }
+
+    .right p {
+      font-size: 1.2rem;
+      color: #ccc;
+      max-width: 400px;
+      margin: 0 auto 30px;
+      font-family: 'Marvel', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .btn-vingadores {
+      padding: 15px 40px;
+      border: 1px solid var(--vingadores-red);
+      color: var(--vingadores-red);
+      font-family: 'Black Ops One', cursive;
+      text-transform: uppercase;
+      background: rgba(255, 42, 42, 0.1);
+      transition: all 0.3s;
+      display: inline-block;
+      clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+    }
+
+    .right:hover .btn-vingadores {
+      background: var(--vingadores-red);
+      color: #fff;
+      box-shadow: 0 0 40px var(--vingadores-red);
+    }
+
+    /* Hover Interaction */
+    .container:hover .split {
+      width: 40%;
+      opacity: 0.5;
+      filter: blur(2px);
+    }
+
+    .container .split:hover {
+      width: 60%;
+      opacity: 1;
+      filter: blur(0);
+    }
+
+    /* Logo Overlay */
+    .logo-overlay {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      pointer-events: none;
+      text-align: center;
+    }
+
+    .logo-overlay h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 8px;
+      opacity: 0.8;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .split {
+        width: 100%;
+        height: 50%;
+      }
+
+      .container:hover .split {
+        width: 100%;
+        height: 50%;
+        opacity: 1;
+        filter: none;
+      }
+
+      .container .split:hover {
+        width: 100%;
+        height: 50%;
+      }
+
+      .left h2,
+      .right h2 {
+        font-size: 2.5rem;
+      }
+
+      .orb-1 {
+        width: 150px;
+        height: 150px;
+      }
+
+      .orb-2 {
+        width: 100px;
+        height: 100px;
+      }
+
+      .logo-overlay {
+        top: 15px;
+      }
+
+      .logo-overlay h1 {
+        font-size: 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="logo-overlay">
+    <h1>LacerdaTEAM</h1>
+  </div>
+
+  <div class="container">
+    <!-- Left Side: Método Start (Energy) -->
+    <a href="/metodo-start/" class="split left">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="content">
+        <h2>Método Start</h2>
+        <p>Liberdade. Flexibilidade. Resultados Reais.</p>
+        <span class="btn-start">INICIAR JORNADA</span>
+      </div>
+    </a>
+
+    <!-- Right Side: Protocolo Vingadores (Tech) -->
+    <a href="/protocolo-vingadores/" class="split right">
+      <div class="grid-overlay"></div>
+      <div class="scanline"></div>
+      <div class="content">
+        <h2 data-text="Protocolo Vingadores">Protocolo Vingadores</h2>
+        <p>Alta Performance. Estética de Herói. Dominação.</p>
+        <span class="btn-vingadores">ACESSAR SISTEMA</span>
+      </div>
+    </a>
+  </div>
+
+  <script>
+    // Mobile Touch Handling
+    const splits = document.querySelectorAll('.split');
+
+    if (window.innerWidth <= 768) {
+      splits.forEach(split => {
+        split.addEventListener('touchstart', () => {
+          // Reset others
+          splits.forEach(s => {
+            s.style.opacity = '0.5';
+            s.style.filter = 'blur(1px)';
+          });
+          // Activate current
+          split.style.opacity = '1';
+          split.style.filter = 'none';
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>
